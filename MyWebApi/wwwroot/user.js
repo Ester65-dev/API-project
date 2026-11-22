@@ -1,18 +1,61 @@
-﻿const postdata = async () => {
-    const name = document.querySelector("#name").value
-    const lname = document.querySelector("#lname").value
-    const email = document.querySelector("#email").value
-    const password = document.querySelector("#pass").value
+﻿
+const validPass = async () => {
+    const password = document.querySelector("#password").value
+    try {
+        const respone = await fetch(`api/Users/validPass`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(password)
+        });
 
+
+        if (respone.ok) {
+            const CurrentUser = await respone.json();
+            const prog = document.querySelector("#prog");
+
+            prog.value = CurrentUser
+
+            if (CurrentUser < 2) {
+                throw "NOT A STRONG PASSWORD"
+            }
+
+            
+        }
+    }
+    catch (e) {
+        alert(e)
+    }
+}
+
+
+
+
+
+
+
+const postdata = async () => {
+    const firstName = document.querySelector("#firstName").value
+    const lastName = document.querySelector("#lastName").value
+    const email = document.querySelector("#email").value
+    const password = document.querySelector("#password").value
+
+
+    validPass();
+    const prog = document.querySelector("#prog");
+    if (prog < 2) {
+        return;
+    }
     const user = {
-        name,
-        lname,
+        firstName,
+        lastName,
         email,
         password
     };
 
     try {
-        const respone = await fetch('api/Users', {
+        const respone = await fetch(`api/Users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -21,10 +64,9 @@
         });
 
        
-        const CurrentUser = await respone.json();
         if (respone.ok) {
+            const CurrentUser = await respone.json();
             alert("נרשמת בהצלחה")
-            sessionStorage.setItem("CurrentUser",JSON.stringify(CurrentUser))
         }
         else {
             throw Error("error")
@@ -37,9 +79,9 @@
 
 }
 
-const login=async()=>{
-    email:document.querySelector("#logemail").value
-    password:document.querySelector("#logpass").value
+const getUser = async () => {
+   const email=document.querySelector("#logemail").value
+    const password=document.querySelector("#logpassword").value
 
     const loguser={
         email,
@@ -48,7 +90,7 @@ const login=async()=>{
 
     try {
        
-        const respone = await fetch('api/Users/login', {
+        const respone = await fetch(`api/Users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,11 +99,14 @@ const login=async()=>{
         });
 
         
-        const postRes = await respone.json();
-        if (!postRes.ok)
-            throw Error("error")
+        if (!respone.ok)
+            throw Error("the user not connected")
         else {
+            const CurrentUser = await respone.json();
+            alert("your login was succsess")
+            sessionStorage.setItem("CurrentUser",JSON.stringify(CurrentUser))
             window.location.href="UserDetails.html"
+
                 // a = document.querySelector(".a");
                 // a.style.display = "none";
                 // succses = document.querySelector(".succses");
@@ -82,3 +127,4 @@ const newUser=()=>{
     sign.style.display="grid"; 
 
 }
+

@@ -4,15 +4,16 @@
 
     public class User
     {
-        [Required]
-        public int id { get; set; }
-        [Required]
-        public string name { get; set; }
-        [Required]
-        public string lname { get; set; }
-        [EmailAddress]
+       
+       // [Required]
+        public string firstName { get; set; }
+      //  [Required]
+        public string lastName { get; set; }
+       // [EmailAddress]
         public string email { get; set; }
-        [Required]
+       // [Required]
         public string password { get; set; }
+        public int id { get; set; }
+
     }
 }

@@ -49,6 +49,7 @@ namespace MyWebApi.Controllers
             string userJson = JsonSerializer.Serialize(user);
             System.IO.File.AppendAllText(filePath, userJson +
             Environment.NewLine);
+            
             return Ok(user);
             // return CreatedAtAction(nameof(Get), new { id = user.id },
             // user);
@@ -76,7 +77,7 @@ namespace MyWebApi.Controllers
 
         // PUT api/<Users>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User userToUpdate)
+        public void Put( [FromBody] User userToUpdate)
         {
             string textToReplace = string.Empty;
             using (StreamReader reader =
@@ -87,7 +88,7 @@ namespace MyWebApi.Controllers
                 {
                     User user =
                     JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.id == id)
+                    if (user.id == userToUpdate.id)
                         textToReplace = currentUserInFile;
                 }
             }
@@ -105,6 +106,14 @@ namespace MyWebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [HttpPost("validPass")]
+        // public ActionResult<User> PostLog([FromBody] loguser loginUser)
+        public ActionResult<User> Post([FromBody] string pass )
+        {
+            int s=Zxcvbn.Core.EvaluatePassword(pass).Score;
+            return Ok(s);
         }
     }
 }
