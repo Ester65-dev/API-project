@@ -21,6 +21,9 @@ const validPass = async () => {
                 throw "NOT A STRONG PASSWORD"
             }
 
+
+
+                
             
         }
     }

@@ -4,7 +4,7 @@
 
     public class User
     {
-       
+          
        // [Required]
         public string firstName { get; set; }
       //  [Required]
@@ -14,6 +14,7 @@
        // [Required]
         public string password { get; set; }
         public int id { get; set; }
+
 
     }
 }
