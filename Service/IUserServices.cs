@@ -1,0 +1,11 @@
+﻿namespace Service
+{
+    public interface IUserServices
+    {
+        string Get();
+        User Get(int id);
+        User Post(loguser loginUser);
+        User Post(User user);
+        void Put(int id, User userToUpdate);
+    }
+}

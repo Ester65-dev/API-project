@@ -2,7 +2,7 @@
 const validPass = async () => {
     const password = document.querySelector("#password").value
     try {
-        const respone = await fetch(`api/Users/validPass`, {
+        const respone = await fetch(`api/Pass`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,8 @@ const postdata = async () => {
     const password = document.querySelector("#password").value
 
 
-    validPass();
+    await validPass();
+
     const prog = document.querySelector("#prog");
     if (prog < 2) {
         return;

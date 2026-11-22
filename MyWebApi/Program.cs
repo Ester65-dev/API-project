@@ -1,3 +1,6 @@
+using Repositorys;
+using Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IUserServices, UserServices>();
+builder.Services.AddTransient<IpassServise, passServise>();
+
+
+
 
 var app = builder.Build();
 

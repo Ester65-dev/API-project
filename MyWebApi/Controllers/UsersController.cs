@@ -1,18 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Service;
 using System.Text.Json;
+<<<<<<< HEAD
 using System.Runtime.Intrinsics.Arm;
+=======
+using MyWebApi;
+>>>>>>> a822170 (Refactor project into layered architecture)
 
 
 // For more informati on on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyWebApi.Controllers
 {
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
+<<<<<<< HEAD
         static string filePath = "Users.txt";
         // GET: api/<Users>
+=======
+        IUserServices userServices;
+        
+        public UsersController(IUserServices userServices)
+        {
+           this.userServices= userServices; 
+        }
+
+>>>>>>> a822170 (Refactor project into layered architecture)
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -23,6 +40,7 @@ namespace MyWebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
+<<<<<<< HEAD
                
 
                 using (StreamReader reader = System.IO.File.OpenText(filePath))
@@ -36,6 +54,11 @@ namespace MyWebApi.Controllers
                 }
             } 
 
+=======
+            User user= userServices.Get(id);
+            if(user!=null)
+                return Ok(user);
+>>>>>>> a822170 (Refactor project into layered architecture)
             return NotFound();
         }        
         
@@ -43,42 +66,25 @@ namespace MyWebApi.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
-            
-            int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            user.id = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText(filePath, userJson +
-            Environment.NewLine);
-            
-            return Ok(user);
-            // return CreatedAtAction(nameof(Get), new { id = user.id },
-            // user);
+            userServices.Post(user);
+            return CreatedAtAction(nameof(Get), new { id = user.id },user);
         }
 
 
-        // [HttpPost("{email} {password}")]
         [HttpPost("login")]
-       // public ActionResult<User> PostLog([FromBody] loguser loginUser)
-        public ActionResult<User> PostLog([FromBody] loguser loginUser)
-
+        public ActionResult<User> Post([FromBody] loguser loginUser)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.email == loginUser.email && user.password == loginUser.password)
-                        return user;
-                }
-            }
+           User logUser = userServices.Post(loginUser);
+            if(logUser!=null)
+                return Ok(logUser);
             return NoContent();
         }
 
         // PUT api/<Users>/5
         [HttpPut("{id}")]
-        public void Put( [FromBody] User userToUpdate)
+        public void Put(int id,[FromBody] User userToUpdate)
         {
+<<<<<<< HEAD
             string textToReplace = string.Empty;
             using (StreamReader reader =
             System.IO.File.OpenText(filePath))
@@ -117,5 +123,10 @@ namespace MyWebApi.Controllers
             int s=Zxcvbn.Core.EvaluatePassword(pass).Score;
             return Ok(s);
         }
+=======
+            userServices.Put(id,userToUpdate);
+        }
+
+>>>>>>> a822170 (Refactor project into layered architecture)
     }
 }

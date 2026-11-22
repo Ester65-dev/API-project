@@ -1,5 +1,5 @@
-﻿namespace MyWebApi
-{
+﻿//namespace MyWebApi
+//{
     using System.ComponentModel.DataAnnotations;
 
     public class User
@@ -17,4 +17,4 @@
 
 
     }
-}
+//

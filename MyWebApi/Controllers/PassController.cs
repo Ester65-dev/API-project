@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,18 @@ namespace MyWebApi.Controllers
             return "value";
         }
 
-        // POST api/<PassController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        IpassServise passServise;
+        public PassController(IpassServise passServise)
         {
+            this.passServise = passServise;
+        }
+
+
+        [HttpPost]
+        // public ActionResult<User> PostLog([FromBody] loguser loginUser)
+        public IActionResult Post([FromBody] string pass)
+        {
+            return Ok(passServise.Post(pass));
         }
 
         // PUT api/<PassController>/5

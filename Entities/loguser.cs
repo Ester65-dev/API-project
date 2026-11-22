@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyWebApi
-{
+
     public class loguser
     {
         //[EmailAddress]
@@ -9,4 +8,4 @@ namespace MyWebApi
       //  [Required]
         public string password { get; set; }
     }
-}
+
