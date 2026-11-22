@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script defer src="user.js"></script>
+</head>
+
+<style>
+    body {
+        display: grid;
+        place-content: center;
+        width:100vw;
+    }
+    .a{
+        display:flex;
+        width:100vw;
+        justify-content:center;
+        align-items:flex-end;
+        gap:40px;
+    }
+    .sign {
+        background-color: rosybrown;
+        display: grid;
+        place-content: center;
+        gap: 5px;
+    }
+    .get {
+        background-color: rosybrown;
+        display: grid;
+        place-content: center;
+        gap: 5px;
+    }
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        color: burlywood ;
+        display: grid;
+        place-content: center;
+    }
+    button {
+        width: 100px;
+       
+    }
+</style>
+
+<body>
+
+    <h1>hi! Welcime to...</h1>
+    <br />
+    <div class="a">
+    <div class="sign" style="display:none">
+        <label for="name">Enter FirstName</label>
+        <input type="text" id="name" />
+        <label for="lname">Enter LastName</label>
+        <input type="text" id="lname" />
+        <label for="email">Enter Email</label>
+        <input type="email" id="email" />
+        <label for="pass">Enter Password</label>
+        <input type="password" id="pass" />
+        <br />
+        <button onclick="postdata()">Set</button>
+    </div>
+
+    <div class="get">
+        <label for="logemail">Enter Email</label>
+        <input type="email" id="logemail" />
+        <label for="logpass">Enter Password</label>
+        <input type="password" id="logpass" />
+        <br />
+        <button onclick="postdata()">Set</button>
+        <br />
+        <button onclick="newUser()">new user</button>
+    </div>
+    </div>
+    <div class="succses" style="display:none">succses login ✅</div>
+</body>
+</html>
