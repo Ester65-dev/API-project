@@ -18,11 +18,13 @@ namespace MyWebApi.Controllers
         static string filePath = "Users.txt";
         // GET: api/<Users>
         IUserServices userServices;
+
         
         public UsersController(IUserServices userServices)
         {
            this.userServices= userServices; 
         }
+
 
         [HttpGet]
         public IEnumerable<string> Get()
@@ -39,6 +41,7 @@ namespace MyWebApi.Controllers
                 return Ok(user);
             return NotFound();
         }        
+
         
         // POST api/<Users>
         [HttpPost]
@@ -66,6 +69,7 @@ namespace MyWebApi.Controllers
 
         }
 
+
         // DELETE api/<Users>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
@@ -82,6 +86,7 @@ namespace MyWebApi.Controllers
             return Ok(s);
         }
       
+
 
     }
 }

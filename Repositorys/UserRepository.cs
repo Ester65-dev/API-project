@@ -20,6 +20,7 @@ namespace Repositorys
             return filePath;
         }
 
+                      
         public User Get(int id)
         {
 
@@ -52,7 +53,7 @@ namespace Repositorys
             return user;
 
         }
-
+                     
 
         public User Post(loguser loginUser)
 
@@ -89,7 +90,7 @@ namespace Repositorys
                     }
                 }
             }
-
+                        
             if (textToReplace != string.Empty)
             {
                 string text = System.IO.File.ReadAllText(filePath);

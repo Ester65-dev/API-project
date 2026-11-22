@@ -12,8 +12,10 @@
        // [EmailAddress]
         public string email { get; set; }
        // [Required]
+
         public string password { get; set; }
         public int id { get; set; }
+
 
 
     }

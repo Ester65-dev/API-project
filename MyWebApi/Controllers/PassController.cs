@@ -27,6 +27,7 @@ namespace MyWebApi.Controllers
         public PassController(IpassServise passServise)
         {
             this.passServise = passServise;
+
         }
 
 
