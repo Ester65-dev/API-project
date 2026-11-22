@@ -1,4 +1,5 @@
-﻿using Repositorys;
+﻿using Entities.Models;
+using Repositorys;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,31 +17,26 @@ namespace Service
             this.repository = userRepository;
         }
 
-        public string Get()
+        public async Task<User> Get(int id)
         {
-            return repository.Get();
-        }
-
-        public User Get(int id)
-        {
-            return repository.Get(id);
+            return await repository.Get(id);
         }
 
 
-        public User Post(User user)
+        public async Task<User> Post(User user)
         {
-            return repository.Post(user);
+            return await repository.Post(user);
         }
 
 
-        public User Post(loguser loginUser)
+        public async Task<User> Post(loguser loginUser)
 
         {
-            return repository.Post(loginUser);
+            return await repository.Post(loginUser);
         }
 
 
-        public void Put(int id, User userToUpdate)
+        public async Task Put(int id, User userToUpdate)
         {
             repository.Put(id, userToUpdate);
 

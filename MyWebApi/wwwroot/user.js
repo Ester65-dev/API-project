@@ -21,9 +21,6 @@ const validPass = async () => {
                 throw "NOT A STRONG PASSWORD"
             }
 
-
-
-                
             
         }
     }
@@ -39,10 +36,10 @@ const validPass = async () => {
 
 
 const postdata = async () => {
-    const firstName = document.querySelector("#firstName").value
-    const lastName = document.querySelector("#lastName").value
-    const email = document.querySelector("#email").value
-    const password = document.querySelector("#password").value
+    const FirstName = document.querySelector("#firstName").value
+    const LastName = document.querySelector("#lastName").value
+    const Email = document.querySelector("#email").value
+    const Password = document.querySelector("#password").value
 
 
     await validPass();
@@ -52,10 +49,11 @@ const postdata = async () => {
         return;
     }
     const user = {
-        firstName,
-        lastName,
-        email,
-        password
+        
+        Email,
+        Password,
+        FirstName,
+        LastName
     };
 
     try {

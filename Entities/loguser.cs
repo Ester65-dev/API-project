@@ -3,9 +3,9 @@
 
     public class loguser
     {
-        //[EmailAddress]
+        [EmailAddress]
         public string email { get; set; }
-      //  [Required]
+        [Required]
         public string password { get; set; }
     }
 

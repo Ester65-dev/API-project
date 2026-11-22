@@ -1,11 +1,15 @@
-﻿namespace Repositorys
+﻿using Entities.Models;
+
+namespace Repositorys
 {
     public interface IUserRepository
     {
-        string Get();
-        User Get(int id);
-        User Post(loguser loginUser);
-        User Post(User user);
-        void Put(int id, User userToUpdate);
+        
+     
+        Task<User> Get(int id);
+
+        Task<User> Post(loguser loginUser);
+        Task<User> Post(User user);
+        Task Put(int id, User userToUpdate);
     }
 }
