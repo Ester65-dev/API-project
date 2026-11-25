@@ -9,14 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserServices, UserServices>();
+
 builder.Services.AddTransient<IpassServise, passServise>();
 builder.Services.AddDbContext<estyUsersContext>(Options=>Options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=srv2\\pupils;Initial Catalog=estyUsers;Integrated " +
     "Security=True;Trust Server Certificate=True")),ServiceLifetime.Transient);
+
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+
+
 
 
 
@@ -24,13 +36,25 @@ builder.Services.AddDbContext<estyUsersContext>(Options=>Options.UseSqlServer(bu
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "v1");
+    });
 }
 
 
+//if (app.Environment.IsDevelopment())
+//{
+//    app.MapOpenApi();
+//}
+
+
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseAuthorization();
