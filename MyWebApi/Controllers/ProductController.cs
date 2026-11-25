@@ -24,10 +24,10 @@ namespace MyWebApi.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> Get()
+        public async Task<ActionResult<(List<Product> Items, int totalcount)>> GetProductsAsync(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryId)
         {
-            IEnumerable<Product> product =await ProductService.Get();
-            if (product != null)
+            (List<Product> Items, int totalcount) product =await ProductService.GetProductsAsync( position,  skip,   desc,   minPrice,   maxPrice,  categoryId);
+            if (product.Items != null)
                 return Ok(product);
             return NotFound();
         }

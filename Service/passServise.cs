@@ -9,7 +9,8 @@ namespace Service
     {
         public int Post(string pass)
         {
-            return Zxcvbn.Core.EvaluatePassword(pass).Score;
+            int res= Zxcvbn.Core.EvaluatePassword(pass).Score;
+            return res;
             
         }
     }

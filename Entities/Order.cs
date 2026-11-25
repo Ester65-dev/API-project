@@ -13,11 +13,9 @@ public partial class Order
     public DateOnly OrderDate { get; set; }
 
     public int OrderSum { get; set; }
-
-    [JsonIgnore]
+  
     public int UserId { get; set; }
 
-    [JsonIgnore]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual User User { get; set; }

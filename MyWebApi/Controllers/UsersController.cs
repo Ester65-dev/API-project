@@ -11,16 +11,27 @@ namespace MyWebApi.Controllers
 {
 
 
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         IUserServices userServices;
-        
-        public UsersController(IUserServices userServices)
+        IConfiguration configuration;
+        IpassServise IpassServise;
+        private readonly ILogger<UsersController> logger;
+
+
+        public UsersController(IUserServices userServices, IConfiguration configuration,IpassServise ipassServise, ILogger<UsersController> logger)
         {
-           this.userServices= userServices; 
+            this.userServices = userServices;
+            this.configuration = configuration;
+            this.IpassServise= ipassServise;
+            this.logger= logger;
+            logger.LogInformation($"new user entered");
         }
+
+
 
         [HttpGet]
         public IEnumerable<string> Get()
@@ -40,8 +51,12 @@ namespace MyWebApi.Controllers
         
         // POST api/<Users>
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody] User user)
+        public async Task<ActionResult<User>> Post([FromBody] User user, ILogger<UsersController> _loger)
         {
+            logger.LogInformation($"new user signin with name: {user.Firstname} and password: {user.Password}");
+            int strengOfPassword = IpassServise.Post(user.Password);
+            if (strengOfPassword <= configuration.GetValue<int>("passwordStrong", 2))
+                return BadRequest();
             await userServices.Post(user);
             return CreatedAtAction(nameof(Get), new { id = user.Id},user);
         }

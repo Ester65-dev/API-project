@@ -1,6 +1,7 @@
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using NLog.Web;
 using Repositorys;
 using Service;
 
@@ -16,8 +17,8 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserServices, UserServices>();
 
 builder.Services.AddTransient<IpassServise, passServise>();
-builder.Services.AddDbContext<estyUsersContext>(Options=>Options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=srv2\\pupils;Initial Catalog=estyUsers;Integrated " +
-    "Security=True;Trust Server Certificate=True")),ServiceLifetime.Transient);
+builder.Services.AddDbContext<estyUsersContext>(Options=>Options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")),ServiceLifetime.Transient);
+
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IProductService, ProductService>();
@@ -29,7 +30,7 @@ builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 
 
-
+builder.Host.UseNLog();
 
 
 
@@ -37,7 +38,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("shop"))
 {
     app.MapOpenApi();
     app.UseSwaggerUI(options =>

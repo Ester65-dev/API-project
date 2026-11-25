@@ -9,6 +9,12 @@ namespace MyWebApi.Controllers
     [ApiController]
     public class PassController : ControllerBase
     {
+        IpassServise passServise;
+        public PassController(IpassServise passServise)
+        {
+            this.passServise = passServise;
+        }
+
         // GET: api/<PassController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -23,12 +29,7 @@ namespace MyWebApi.Controllers
             return "value";
         }
 
-        IpassServise passServise;
-        public PassController(IpassServise passServise)
-        {
-            this.passServise = passServise;
-        }
-
+      
 
         [HttpPost]
         // public ActionResult<User> PostLog([FromBody] loguser loginUser)
