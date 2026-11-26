@@ -40,7 +40,7 @@ namespace MyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> Get(int id)
         {
-            if (ProductService.GetById(id))
+            if (ProductService.GetById(id)!=null)
                 return await ProductService.GetById(id);
             return NoContent();
         }
