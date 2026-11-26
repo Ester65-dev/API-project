@@ -26,14 +26,16 @@ namespace MyWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> Get(int id)
         {
-            return await orderService.GetOrderById(id);
+            if(orderService.GetOrderById(id)!=null)
+                return await orderService.GetOrderById(id);
+            return NoContent();
         }
 
         // POST api/<OrderController>
         [HttpPost]
         public async Task<ActionResult<Order>> Post([FromBody] Order order)
         {
-            await orderService.Post(order);
+            order=await orderService.Post(order);
             return CreatedAtAction(nameof(Get), new { id = order.Id }, order);
         }
 

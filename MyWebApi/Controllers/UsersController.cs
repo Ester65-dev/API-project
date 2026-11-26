@@ -34,19 +34,20 @@ namespace MyWebApi.Controllers
 
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<User>> Get()
         {
-            return new string[] { "esty", "miri" };
+            return await userServices.Get();
         }
 
         // GET api/<Users>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
-            User user= await userServices.Get(id);
-            if(user!=null)
-                return Ok(user);
-            return NotFound();
+           if(userServices.Get(id) != null)
+            {
+                return await userServices.Get(id);
+            }
+            return NoContent();
         }        
         
         // POST api/<Users>
@@ -56,9 +57,15 @@ namespace MyWebApi.Controllers
             logger.LogInformation($"new user signin with name: {user.Firstname} and password: {user.Password}");
             int strengOfPassword = IpassServise.Post(user.Password);
             if (strengOfPassword <= configuration.GetValue<int>("passwordStrong", 2))
-                return BadRequest();
-            await userServices.Post(user);
-            return CreatedAtAction(nameof(Get), new { id = user.Id},user);
+                return BadRequest("not a strong password");
+            try
+            {
+                user = await userServices.Post(user);
+                return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -66,9 +73,13 @@ namespace MyWebApi.Controllers
         public async  Task<ActionResult<User>> Post([FromBody] loguser loginUser)
         {
            User logUser = await userServices.Post(loginUser);
-            if(logUser!=null)
+            if (logUser != null)
+            {
+                logger.LogInformation("user sucssesfuly log in");
                 return Ok(logUser);
+            }
             return NoContent();
+     
         }
 
         // PUT api/<Users>/5

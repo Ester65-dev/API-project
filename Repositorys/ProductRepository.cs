@@ -30,6 +30,9 @@ namespace Repositorys
             return (products, total);
         }
 
-
+        public async Task<Product> GetById(int id)
+        {
+            return await _dbContext.Products.FindAsync(id);
+        }
     }
 }

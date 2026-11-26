@@ -10,9 +10,11 @@ namespace MyWebApi.Controllers
     public class PassController : ControllerBase
     {
         IpassServise passServise;
-        public PassController(IpassServise passServise)
+        IConfiguration configuration;
+        public PassController(IpassServise passServise, IConfiguration configuration)
         {
             this.passServise = passServise;
+            this.configuration = configuration;
         }
 
         // GET: api/<PassController>

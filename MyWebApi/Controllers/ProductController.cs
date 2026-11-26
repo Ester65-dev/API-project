@@ -32,11 +32,17 @@ namespace MyWebApi.Controllers
             return NotFound();
         }
 
+
+
+
+
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Product>> Get(int id)
         {
-            return "value";
+            if (ProductService.GetById(id))
+                return await ProductService.GetById(id);
+            return NoContent();
         }
 
         // POST api/<ProductController>

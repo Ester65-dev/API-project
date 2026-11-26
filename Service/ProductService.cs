@@ -15,6 +15,11 @@ namespace Service
             this.repository = ProductRepository;
         }
 
+        public async Task<Product> GetById(int id)
+        {
+            return await repository.GetById(id);
+        }
+
         public async Task<(List<Product> Items, int totalcount)> GetProductsAsync(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryId)
         {
             return await repository.GetProductsAsync( position,  skip,  desc,  minPrice,  maxPrice,  categoryId);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json;
-//using Entities;
+
 
 
 namespace Repositorys
@@ -19,8 +19,8 @@ namespace Repositorys
         }
        
 
-        //User user = new User();
-        loguser loguser;
+      
+       
 
         public async Task<User> Get(int id)
         {
@@ -51,7 +51,10 @@ namespace Repositorys
             await _dbContext.SaveChangesAsync();
         }
 
-
+        public async Task<IEnumerable<User>> Get()
+        {
+           return await _dbContext.Users.ToListAsync();
+        }
     }
 }
 

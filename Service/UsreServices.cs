@@ -22,6 +22,10 @@ namespace Service
             return await repository.Get(id);
         }
 
+        public async Task<IEnumerable<User>> Get()
+        {
+           return await repository.Get();
+        }
 
         public async Task<User> Post(User user)
         {
@@ -38,7 +42,7 @@ namespace Service
 
         public async Task Put(int id, User userToUpdate)
         {
-            repository.Put(id, userToUpdate);
+            await repository.Put(id, userToUpdate);
 
         }
     }

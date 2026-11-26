@@ -29,15 +29,15 @@ const writeTheUser =  () => {
 }
 
 const put = async() => {
-    const firstName = document.querySelector("#firstName").value
-    const lastName = document.querySelector("#lastName").value
+    const firstname = document.querySelector("#firstName").value
+    const lastname = document.querySelector("#lastName").value
     const email = document.querySelector("#email").value
     const password = document.querySelector("#password").value
     
     const user = {  
         id:id,
-        firstName,
-        lastName,
+        firstname,
+        lastname,
         email,
         password
 
@@ -63,4 +63,18 @@ const put = async() => {
             alert(e.message)
         }
 }
+
+const ValidPass = async () => {
+    const password = document.querySelector("#password").value;
+    try {
+        const respone = await fetch("api/Pass", {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(password)
+        });
+        const score = await respone.json();
+        document.querySelector("#prog").value = score;
+        if (score < 3) alert("הסיסמה חלשה מדי");
+        return score >= 3;
+    } catch (e) { alert(e.message); return false; }
+};
 

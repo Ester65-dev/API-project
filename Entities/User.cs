@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Entities.Models;
 
@@ -16,6 +17,6 @@ public partial class User
     public string Firstname { get; set; }
 
     public string Lastname { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

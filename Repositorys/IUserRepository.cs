@@ -7,6 +7,8 @@ namespace Repositorys
         
      
         Task<User> Get(int id);
+        Task<IEnumerable<User>> Get();
+
 
         Task<User> Post(loguser loginUser);
         Task<User> Post(User user);
